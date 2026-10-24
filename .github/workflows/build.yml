@@ -1,0 +1,21 @@
+name: Build Umar Gujjar APK
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: |
+          sudo apt update -qq
+          sudo apt install -y openjdk-17-jdk zip unzip autoconf libtool pkg-config libffi-dev libssl-dev
+          pip install --upgrade pip==23.3.1
+          pip install charset-normalizer==2.1.1 Cython==0.29.36 buildozer==1.5.0 -q
+          yes | buildozer android debug
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Umar-Gujjar-APK
+          path: bin/*.apk
