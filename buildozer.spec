@@ -1,18 +1,20 @@
 [app]
-title = Umar Gujjar
-package.name = umargujjar
-package.domain = com.umar.gujjar
+title = Umar Gujjar App
+package.name = umargujjarapp
+package.domain = com.umergujjar.app
 source.dir = .
-version = 1.0
-requirements = python3,kivy==2.3.0,pyjnius,android
+source.include_exts = py,png,jpg,kv,atlas
+version = 0.1
+requirements = python3,kivy
 orientation = portrait
+fullscreen = 0
 
 [buildozer]
 log_level = 2
 
 [app:android]
-android.permissions = INTERNET, RECORD_AUDIO, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, QUERY_ALL_PACKAGES
+android.permissions = INTERNET
 android.api = 33
 android.minapi = 21
 android.ndk = 25b
-android.accept_sdk_license_agreement = True
+android.accept_sdk_license_agreements = True
