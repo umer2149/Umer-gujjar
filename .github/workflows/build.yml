@@ -2,20 +2,24 @@ name: Build Umar Gujjar APK
 on: [push]
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.10'
       - name: Install dependencies
         run: |
-          sudo apt update -qq
-          sudo apt install -y openjdk-17-jdk zip unzip autoconf libtool pkg-config libffi-dev libssl-dev
-          pip install --upgrade pip==23.3.1
-          pip install charset-normalizer==2.1.1 Cython==0.29.36 buildozer==1.5.0 -q
-          yes | buildozer android debug
-      - uses: actions/upload-artifact@v3
+          sudo apt update
+          sudo apt install -y openjdk-17-jdk zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev cmake libffi-dev libssl-dev
+          pip install --upgrade pip
+          pip install buildozer cython==0.29.36
+      - name: Build APK
+        run: |
+          buildozer android debug
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
           name: Umar-Gujjar-APK
           path: bin/*.apk
